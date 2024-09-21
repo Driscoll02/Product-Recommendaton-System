@@ -4,7 +4,7 @@ import { ShoppingCart } from "lucide-react";
 
 const Hero = () => {
   return (
-    <div className="flex w-full rounded-xl bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 h-[50vh] xl:h-[60vh]">
+    <div className="flex w-full rounded-xl bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 h-fit">
       <div className="flex flex-col w-1/4 xl:w-1/6 mx-12 xl:mx-24 my-16 xl:my-20 text-white text-3xl xl:text-5xl space-y-6 xl:space-y-8">
         <h2 className="font-bold">Halloween Sale</h2>
         <span className="text-2xl xl:text-3xl">Offer 2024</span>
