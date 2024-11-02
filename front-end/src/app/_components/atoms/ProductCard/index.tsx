@@ -3,6 +3,7 @@ import { TProductCardData } from "@/types/main";
 import Image from "next/image";
 import { Heart, Plus, Star } from "lucide-react";
 import { useState } from "react";
+import { Bounce, toast } from "react-toastify";
 
 const ProductCard = ({
   productName,
@@ -16,7 +17,7 @@ const ProductCard = ({
   const [isProductLiked, setIsProductLiked] = useState(false);
 
   return (
-    <div className="flex flex-col shadow rounded-lg p-4 w-60 h-30 relative">
+    <div className="flex flex-col shadow rounded-lg p-4 w-64 h-30 relative">
       <div className="relative rounded-md bg-slate-200">
         <button
           className="p-2 absolute left-2 top-2 bg-white rounded-[50px]"
@@ -51,9 +52,24 @@ const ProductCard = ({
           <s>£{salePrice}</s>
           <p className="font-semibold">£{actualPrice}</p>
         </div>
-        <div className="absolute bottom-4 right-4 bg-black rounded-[50px] p-2 w-auto">
+        <button
+          className="absolute bottom-4 right-4 bg-black rounded-[50px] p-2 w-auto"
+          onClick={() =>
+            toast.success("🛒 Item added to cart.", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+            })
+          }
+        >
           <Plus stroke="white" />
-        </div>
+        </button>
       </div>
     </div>
   );
