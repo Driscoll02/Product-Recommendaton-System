@@ -1,4 +1,5 @@
-export type TProductCardData = {
+export type TProductData = {
+  productId: number;
   productName: string;
   productImage: string;
   productBrand: string;

@@ -1,12 +1,22 @@
+"use client";
 import { Heart, ShoppingCart, User } from "lucide-react";
 import Logo from "../../atoms/Logo";
 import NavLinks from "../../molecules/NavLinks";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { State } from "@/types/store-types";
 
 const Header = () => {
+  const router = useRouter();
+
+  const numOfItemsInCart = useSelector((state: State) => state.cart).length;
+
   return (
     <header className="shadow-sm">
       <div id="top-header" className="flex items-center justify-between my-6">
-        <Logo />
+        <button onClick={() => router.push("/")}>
+          <Logo />
+        </button>
         <div>Search bar</div>
         {/* Right Elements */}
         <div className="flex justify-start space-x-8">
@@ -27,13 +37,16 @@ const Header = () => {
             </span>
           </button>
 
-          <button className="flex relative items-center space-x-4">
+          <button
+            className="flex relative items-center space-x-4"
+            onClick={() => router.push("/cart")}
+          >
             <ShoppingCart width={"30px"} height={"30px"} />
             <span
               className="bg-red-600 rounded-full text-white px-1 text-xs absolute top-0"
               style={{ left: 5 }}
             >
-              0
+              {numOfItemsInCart}
             </span>
             <div className="text-left">
               <p className="text-xs">Total</p>

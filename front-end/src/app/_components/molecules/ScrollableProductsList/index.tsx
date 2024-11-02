@@ -1,9 +1,10 @@
-import { TProductCardData } from "@/types/main";
+import { TProductData } from "@/types/main";
 import ProductCard from "../../atoms/ProductCard";
 
 const ScrollableProductsList = () => {
-  const products: TProductCardData[] = [
+  const products: TProductData[] = [
     {
+      productId: 1,
       productName: "Apple Watch",
       productImage: "/images/apple-watch.png",
       productBrand: "Apple",
@@ -13,6 +14,7 @@ const ScrollableProductsList = () => {
       actualPrice: "210.99",
     },
     {
+      productId: 2,
       productName: "Raspberry Pi 4",
       productImage: "/images/raspberry-pi-4.png",
       productBrand: "Raspberry Pi",
@@ -22,6 +24,7 @@ const ScrollableProductsList = () => {
       actualPrice: "59.99",
     },
     {
+      productId: 3,
       productName: "Iphone 16",
       productImage: "/images/iphone16.png",
       productBrand: "Apple",
@@ -35,9 +38,10 @@ const ScrollableProductsList = () => {
   return (
     <section className="container flex flex-row py-8">
       <div className="flex flex-row space-x-5">
-        {products.map((prod, idx) => (
+        {products.map((prod) => (
           <ProductCard
-            key={idx}
+            key={prod.productId}
+            productId={prod.productId}
             productName={prod.productName}
             productImage={prod.productImage}
             productBrand={prod.productBrand}

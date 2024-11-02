@@ -1,3 +1,4 @@
+"use client";
 import { ToastContainer } from "react-toastify";
 import Hero from "./_components/organisms/Hero";
 import ScrollableProducts from "./_components/organisms/ScrollableProducts";
