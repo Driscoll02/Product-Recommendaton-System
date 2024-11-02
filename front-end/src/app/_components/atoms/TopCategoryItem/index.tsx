@@ -1,7 +1,4 @@
-type TTopCategoryItem = {
-  itemName: string;
-  itemIcon: React.ReactNode;
-};
+import { TTopCategoryItem } from "@/types/main";
 
 const TopCategoryItem = ({ itemName, itemIcon }: TTopCategoryItem) => {
   return (

@@ -78,8 +78,9 @@ const TopCategoriesList = () => {
 
   return (
     <div className="flex mt-6 overflow-x-auto scrollbar-thin">
-      {topCategoryItems.map((item: TTopCategoryItems[number]) => (
+      {topCategoryItems.map((item: TTopCategoryItems[number], idx) => (
         <TopCategoryItem
+          key={idx}
           itemName={item.categoryName}
           itemIcon={item.categoryIcon}
         />
