@@ -21,7 +21,7 @@ const ProductCard = ({
 
   const dispatch = useDispatch();
 
-  const addToCartHandler = (e) => {
+  const addToCartHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     toast.success("🛒 Item added to cart.", {
@@ -40,6 +40,12 @@ const ProductCard = ({
       addToCart({
         productId,
         productName,
+        productImage,
+        productBrand,
+        starRating,
+        amountSold,
+        salePrice,
+        actualPrice,
       })
     );
   };

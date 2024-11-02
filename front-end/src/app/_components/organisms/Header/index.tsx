@@ -9,7 +9,14 @@ import { State } from "@/types/store-types";
 const Header = () => {
   const router = useRouter();
 
-  const numOfItemsInCart = useSelector((state: State) => state.cart).length;
+  const cartItems = useSelector((state: State) => state.cart);
+
+  console.log(cartItems);
+
+  const totalCartCost = cartItems.reduce((sum, item) => {
+    const price = parseFloat(item.actualPrice); // Convert string to number
+    return sum + (isNaN(price) ? 0 : price); // Add price to sum, default to 0 if NaN
+  }, 0);
 
   return (
     <header className="shadow-sm">
@@ -46,11 +53,11 @@ const Header = () => {
               className="bg-red-600 rounded-full text-white px-1 text-xs absolute top-0"
               style={{ left: 5 }}
             >
-              {numOfItemsInCart}
+              {cartItems.length}
             </span>
             <div className="text-left">
               <p className="text-xs">Total</p>
-              <p className="font-bold">£0.00</p>
+              <p className="font-bold">£{totalCartCost.toLocaleString()}</p>
             </div>
           </button>
         </div>

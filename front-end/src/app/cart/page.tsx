@@ -9,18 +9,25 @@ const CartPage = () => {
 
   const dispatch = useDispatch();
 
-  const removeFromCartHandler = (e, productId: number) => {
+  console.log(cartData);
+
+  const removeFromCartHandler = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    cartProductId: string
+  ) => {
     e.preventDefault();
 
-    dispatch(removeFromCart({ productId }));
+    dispatch(removeFromCart({ cartProductId }));
   };
 
   return (
     <div>
       {cartData.map((product) => (
-        <div key={product.productId}>
+        <div key={product.cartProductId}>
           <h3>{product.productName}</h3>
-          <button onClick={(e) => removeFromCartHandler(e, product.productId)}>
+          <button
+            onClick={(e) => removeFromCartHandler(e, product.cartProductId)}
+          >
             <Trash2 />
           </button>
         </div>

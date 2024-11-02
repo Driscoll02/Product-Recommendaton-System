@@ -1,6 +1,6 @@
 import { TProductData } from "@/types/main";
-import { Action, State } from "@/types/store-types";
-import { createSlice } from "@reduxjs/toolkit";
+import { State } from "@/types/store-types";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: State = {
   cart: [],
@@ -12,8 +12,9 @@ export const productTrackerSlice = createSlice({
   name: "product-tracker",
   initialState,
   reducers: {
-    addToCart: (state, action: Action) => {
-      const product: TProductData = {
+    addToCart: (state, action: PayloadAction<TProductData>) => {
+      const product: TProductData & { cartProductId: string } = {
+        cartProductId: nanoid(),
         productId: action.payload.productId,
         productName: action.payload.productName,
         productImage: action.payload.productImage,
@@ -25,10 +26,13 @@ export const productTrackerSlice = createSlice({
       };
       state.cart.push(product);
     },
-    removeFromCart: (state, action) => {
+    removeFromCart: (
+      state,
+      action: PayloadAction<{ cartProductId: string }>
+    ) => {
       // Remove item by ID
       state.cart = state.cart.filter(
-        (product) => product.productId !== action.payload.productId
+        (product) => product.cartProductId !== action.payload.cartProductId
       );
     },
   },
