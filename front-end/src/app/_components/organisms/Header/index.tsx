@@ -34,7 +34,10 @@ const Header = () => {
               <span className="text-md font-bold text-left">Joseph</span>
             </div>
           </button>
-          <button className="relative py-1 px-1">
+          <button
+            className="relative py-1 px-1"
+            onClick={() => router.push("/liked-products")}
+          >
             <Heart width={"30px"} height={"30px"} />
             <span
               className="bg-red-600 rounded-full text-white px-1 text-xs absolute top-0"

@@ -1,33 +1,32 @@
 "use client";
-import { removeFromCart } from "@/features/products-tracker/productTrackerSlice";
+import { removeFromLikedProducts } from "@/features/products-tracker/productTrackerSlice";
 import { State } from "@/types/store-types";
-import { Trash2 } from "lucide-react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ScrollableProductsList from "../_components/molecules/ScrollableProductsList";
+import { Trash2 } from "lucide-react";
 
-const CartPage = () => {
-  const cartData = useSelector((state: State) => state.cart);
+const LikedProductsPage = () => {
+  const likedProductsData = useSelector((state: State) => state.likedProducts);
 
   const dispatch = useDispatch();
 
-  console.log(cartData);
-
-  const removeFromCartHandler = (
+  const removeLikedProductHandler = (
     e: React.MouseEvent<HTMLButtonElement>,
-    cartProductId: string
+    productId: number
   ) => {
     e.preventDefault();
 
-    dispatch(removeFromCart({ cartProductId }));
+    dispatch(removeFromLikedProducts({ productId }));
   };
 
   return (
     <div className="flex items-center justify-center my-20">
       <div className="container flex items-center justify-center my-20">
-        {cartData.length === 0 && (
+        {likedProductsData.length === 0 && (
           <div>
             <h2 className="font-bold text-xl text-center">
-              There are no items in your cart.
+              You have not liked any products.
             </h2>
 
             <div className="my-40 font-bold">
@@ -36,12 +35,12 @@ const CartPage = () => {
             </div>
           </div>
         )}
-        {cartData &&
-          cartData.map((product) => (
-            <div key={product.cartProductId}>
+        {likedProductsData &&
+          likedProductsData.map((product) => (
+            <div key={product.likedProductId}>
               <h3>{product.productName}</h3>
               <button
-                onClick={(e) => removeFromCartHandler(e, product.cartProductId)}
+                onClick={(e) => removeLikedProductHandler(e, product.productId)}
               >
                 <Trash2 />
               </button>
@@ -52,4 +51,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default LikedProductsPage;
