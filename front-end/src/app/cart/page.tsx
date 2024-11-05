@@ -1,29 +1,17 @@
 "use client";
-import { removeFromCart } from "@/features/products-tracker/productTrackerSlice";
 import { State } from "@/types/store-types";
-import { Trash2 } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ScrollableProductsList from "../_components/molecules/ScrollableProductsList";
+import ProductCardCartHorizontal from "../_components/atoms/ProductCardCartHorizontal";
 
 const CartPage = () => {
   const cartData = useSelector((state: State) => state.cart);
 
-  const dispatch = useDispatch();
-
   console.log(cartData);
-
-  const removeFromCartHandler = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    cartProductId: string
-  ) => {
-    e.preventDefault();
-
-    dispatch(removeFromCart({ cartProductId }));
-  };
 
   return (
     <div className="flex items-center justify-center my-20">
-      <div className="container flex items-center justify-center my-20">
+      <div className="container flex items-center justify-center my-20 flex-col">
         {cartData.length === 0 && (
           <div>
             <h2 className="font-bold text-xl text-center">
@@ -37,14 +25,19 @@ const CartPage = () => {
           </div>
         )}
         {cartData &&
-          cartData.map((product) => (
-            <div key={product.cartProductId}>
-              <h3>{product.productName}</h3>
-              <button
-                onClick={(e) => removeFromCartHandler(e, product.cartProductId)}
-              >
-                <Trash2 />
-              </button>
+          cartData.map((prod) => (
+            <div key={prod.cartProductId} className="w-3/4">
+              <ProductCardCartHorizontal
+                key={prod.productId}
+                productId={prod.productId}
+                productName={prod.productName}
+                productImage={prod.productImage}
+                productBrand={prod.productBrand}
+                starRating={prod.starRating}
+                amountSold={prod.amountSold}
+                salePrice={prod.salePrice}
+                actualPrice={prod.actualPrice}
+              />
             </div>
           ))}
       </div>

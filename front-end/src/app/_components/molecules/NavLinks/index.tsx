@@ -1,30 +1,31 @@
+"use client";
+import { useRouter } from "next/navigation";
+
 type TNavOptions = {
   name: string;
-  href: string;
 }[];
 
 const NavLinks = () => {
   const navOptions: TNavOptions = [
     {
       name: "Home",
-      href: "/",
     },
     {
       name: "Todays Deals",
-      href: "/deals",
     },
     {
       name: "Trending",
-      href: "/trending",
     },
   ];
+
+  const router = useRouter();
 
   return (
     <nav>
       <ul className="flex justify-center">
         {navOptions.map((option, optionIdx) => (
           <li key={optionIdx} className="px-8 py-2">
-            <a href={option.href}>{option.name}</a>
+            <button onClick={() => router.push("/")}>{option.name}</button>
           </li>
         ))}
       </ul>

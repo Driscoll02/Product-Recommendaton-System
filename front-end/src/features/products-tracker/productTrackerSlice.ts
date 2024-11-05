@@ -40,7 +40,16 @@ export const productTrackerSlice = createSlice({
         state.cart.push(product);
       }
     },
-    removeFromCart: (
+    removeAllItemsOfTypeFromCart: (
+      state,
+      action: PayloadAction<{ productId: number }>
+    ) => {
+      // Remove item by ID
+      state.cart = state.cart.filter(
+        (product) => product.productId !== action.payload.productId
+      );
+    },
+    removeIndividualItemFromCart: (
       state,
       action: PayloadAction<{ cartProductId: string }>
     ) => {
@@ -72,7 +81,8 @@ export const productTrackerSlice = createSlice({
 
 export const {
   addToCart,
-  removeFromCart,
+  removeAllItemsOfTypeFromCart,
+  removeIndividualItemFromCart,
   addToLikedProducts,
   removeFromLikedProducts,
 } = productTrackerSlice.actions;

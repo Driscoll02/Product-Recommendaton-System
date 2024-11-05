@@ -1,5 +1,5 @@
 import { TProductData } from "@/types/main";
-import ProductCard from "../../atoms/ProductCard";
+import ProductCardVertical from "../../atoms/ProductCardVertical";
 
 const ScrollableProductsList = () => {
   const products: TProductData[] = [
@@ -39,7 +39,7 @@ const ScrollableProductsList = () => {
     <section className="container flex flex-row py-8">
       <div className="flex flex-row space-x-5">
         {products.map((prod) => (
-          <ProductCard
+          <ProductCardVertical
             key={prod.productId}
             productId={prod.productId}
             productName={prod.productName}

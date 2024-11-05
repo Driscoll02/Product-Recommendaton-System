@@ -5,13 +5,13 @@ import NavLinks from "../../molecules/NavLinks";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { State } from "@/types/store-types";
+import SearchBar from "../../molecules/SearchBar";
 
 const Header = () => {
   const router = useRouter();
 
   const cartItems = useSelector((state: State) => state.cart);
-
-  console.log(cartItems);
+  const likedProducts = useSelector((state: State) => state.likedProducts);
 
   const totalCartCost = cartItems.reduce((sum, item) => {
     const price = parseFloat(item.actualPrice); // Convert string to number
@@ -19,14 +19,19 @@ const Header = () => {
   }, 0);
 
   return (
-    <header className="shadow-sm">
-      <div id="top-header" className="flex items-center justify-between my-6">
-        <button onClick={() => router.push("/")}>
+    <header>
+      <div className="grid grid-cols-[1fr,2fr,1fr] my-6 ">
+        <button
+          className="flex justify-start items-center"
+          onClick={() => router.push("/")}
+        >
           <Logo />
         </button>
-        <div>Search bar</div>
+        <div className="place-content-center">
+          <SearchBar />
+        </div>
         {/* Right Elements */}
-        <div className="flex justify-start space-x-8">
+        <div className="flex justify-end items-center space-x-8">
           <button className="flex items-center space-x-2">
             <User width={"30px"} height={"30px"} />
             <div className="flex flex-col">
@@ -40,10 +45,10 @@ const Header = () => {
           >
             <Heart width={"30px"} height={"30px"} />
             <span
-              className="bg-red-600 rounded-full text-white px-1 text-xs absolute top-0"
+              className="bg-orange-600 rounded-full text-white px-1 text-xs absolute top-0"
               style={{ left: 25 }}
             >
-              0
+              {likedProducts.length}
             </span>
           </button>
 
@@ -53,7 +58,7 @@ const Header = () => {
           >
             <ShoppingCart width={"30px"} height={"30px"} />
             <span
-              className="bg-red-600 rounded-full text-white px-1 text-xs absolute top-0"
+              className="bg-orange-600 rounded-full text-white px-1 text-xs absolute top-0"
               style={{ left: 5 }}
             >
               {cartItems.length}

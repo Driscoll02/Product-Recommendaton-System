@@ -12,7 +12,7 @@ import {
 } from "@/features/products-tracker/productTrackerSlice";
 import { State } from "@/types/store-types";
 
-const ProductCard = ({
+const ProductCardVertical = ({
   productId,
   productName,
   productImage,
@@ -88,6 +88,7 @@ const ProductCard = ({
 
   useEffect(() => {
     likeProductHandler();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isProductLiked]);
 
   return (
@@ -139,4 +140,4 @@ const ProductCard = ({
   );
 };
 
-export default ProductCard;
+export default ProductCardVertical;
