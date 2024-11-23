@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${montserrat.className} antialiased mx-40`}>
+      <body className={`${montserrat.className} antialiased`}>
         <Provider store={store}>
           <Header />
           <main>{children}</main>

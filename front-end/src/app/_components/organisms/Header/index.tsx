@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <header>
-      <div className="grid grid-cols-[1fr,2fr,1fr] my-6 ">
+      <div className="grid grid-cols-[1fr,2fr,1fr] my-6 mx-40">
         <button
           className="flex justify-start items-center"
           onClick={() => router.push("/")}

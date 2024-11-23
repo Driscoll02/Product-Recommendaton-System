@@ -10,8 +10,10 @@ export default function Home() {
     <div>
       <ToastContainer />
       <Hero />
-      <TopCategories />
-      <ScrollableProducts groupTitle="Trending Products" />
+      <div className="mx-40">
+        <TopCategories />
+        <ScrollableProducts groupTitle="Trending Products" />
+      </div>
     </div>
   );
 }

@@ -3,21 +3,32 @@ import { useEffect, useRef, useState } from "react";
 const SearchBar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("All categories");
-  const dropdownRef = useRef(null); // Create a ref for the dropdown
+  const dropdownRef = useRef<HTMLDivElement | null>(null); // Create a ref for the dropdown
+
+  const dropdownOptions = [
+    "All categories",
+    "Laptops",
+    "GPUs",
+    "AI Models",
+    "Software",
+  ];
 
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  const handleOptionSelect = (option) => {
+  const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
-    setDropdownOpen(false); // Close dropdown after selection
+    setDropdownOpen(false);
   };
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setDropdownOpen(false);
       }
     };
@@ -67,19 +78,17 @@ const SearchBar = () => {
             className="py-2 text-sm text-gray-700"
             aria-labelledby="dropdown-button"
           >
-            {["All categories", "Laptops", "GPUs", "AI Models", "Software"].map(
-              (option) => (
-                <li key={option}>
-                  <button
-                    type="button"
-                    onClick={() => handleOptionSelect(option)}
-                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
-                  >
-                    {option}
-                  </button>
-                </li>
-              )
-            )}
+            {dropdownOptions.map((option) => (
+              <li key={option}>
+                <button
+                  type="button"
+                  onClick={() => handleOptionSelect(option)}
+                  className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+                >
+                  {option}
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="relative w-full">
