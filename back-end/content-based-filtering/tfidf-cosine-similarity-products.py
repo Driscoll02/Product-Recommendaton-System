@@ -1,7 +1,10 @@
 import pandas as pd
+import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import linear_kernel
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics.pairwise import cosine_similarity
 
+# This will come from an external source eventually
 mock_json_data = [
     {"productId": 1, "productName": "IPhone 16", "productBrand": "Apple", "productDescription": "The newest IPhone Apple has to offer. Contains a faster A18 chip and a configurable action button.", "price": 1000},
     {"productId": 2, "productName": "Galaxy S30 Ultra", "productBrand": "Samsung", "productDescription": "A flagship phone featuring a 200MP camera, S Pen support, and a vibrant 6.9-inch AMOLED display.", "price": 1200},
@@ -20,7 +23,53 @@ mock_json_data = [
     {"productId": 15, "productName": "Apple Watch Series 9", "productBrand": "Apple", "productDescription": "Smartwatch with advanced health tracking and a brighter, always-on display.", "price": 500},
 ]
 
-
 df_products = pd.DataFrame(mock_json_data)
 
-tfidf = TfidfVectorizer(stop_words="english")
+# Drop duplicates based on productName
+df_products = df_products.drop_duplicates(subset=["productName"])
+
+tfidf_brand = TfidfVectorizer(stop_words="english")
+tfidf_desc = TfidfVectorizer(stop_words="english")
+
+# Fill any holes in the data with empty strings
+df_products["productBrand"] = df_products["productBrand"].fillna("")
+df_products["productDescription"] = df_products["productDescription"].fillna("")
+
+brand_tfidf_matrix = tfidf_brand.fit_transform(df_products["productBrand"])
+desc_tfidf_matrix = tfidf_desc.fit_transform(df_products["productDescription"])
+
+# Normalize the price feature
+scaler = MinMaxScaler()
+price_matrix = scaler.fit_transform(df_products[['price']])
+
+# Combine the feature matrices (brand, description, and price)
+combined_features = np.hstack([brand_tfidf_matrix.toarray(), desc_tfidf_matrix.toarray(), price_matrix])
+
+cosine_sim = cosine_similarity(combined_features)
+
+indices = pd.Series(df_products.index, index=df_products["productName"])
+
+def get_recommendations(title, cosine_sim=cosine_sim, indices=indices):
+    # Ensure the title is valid
+    if title not in indices:
+        print(f"'{title}' not found in the dataset.")
+        return []
+
+    # Get the index of the product
+    idx = indices[title]
+
+    # Get similarity scores
+    sim_scores = list(enumerate(cosine_sim[idx]))
+
+    # Sort scores (highest similarity first)
+    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+
+    # Get the top 10 recommendations (excluding itself)
+    sim_scores = sim_scores[1:11]
+    sim_indices = [i[0] for i in sim_scores]
+
+    # Return the product names of recommendations
+    print(df_products["productName"].iloc[sim_indices].tolist())
+
+    
+get_recommendations("IPhone 16")
