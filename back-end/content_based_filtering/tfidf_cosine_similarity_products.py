@@ -79,7 +79,4 @@ def get_recommendations(title, cosine_sim=cosine_sim, indices=indices):
     sim_indices = [i[0] for i in sim_scores]
 
     # Return the product names of recommendations
-    print(df_products["productName"].iloc[sim_indices].tolist())
-
-    
-get_recommendations("IPhone 16")
+    return df_products["productName"].iloc[sim_indices].tolist()
