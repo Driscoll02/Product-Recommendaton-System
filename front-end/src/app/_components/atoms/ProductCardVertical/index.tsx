@@ -104,7 +104,7 @@ const ProductCardVertical = ({
         </button>
         <div className="p-5">
           <Image
-            alt="Apple Watch"
+            alt={productName}
             className="h-44 w-44"
             width={168}
             height={168}

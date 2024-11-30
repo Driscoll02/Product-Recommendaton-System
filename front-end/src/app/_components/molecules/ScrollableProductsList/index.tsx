@@ -1,55 +1,42 @@
-import { TProductData } from "@/types/main";
 import ProductCardVertical from "../../atoms/ProductCardVertical";
+import productsData from "../../../../../../products.json";
+import { useRecommendationsContext } from "@/providers/RecommendationsProvider";
 
 const ScrollableProductsList = () => {
-  const products: TProductData[] = [
-    {
-      productId: 1,
-      productName: "Apple Watch",
-      productImage: "/images/apple-watch.png",
-      productBrand: "Apple",
-      starRating: 4.3,
-      amountSold: 12462,
-      salePrice: "249.99",
-      actualPrice: "210.99",
-    },
-    {
-      productId: 2,
-      productName: "Raspberry Pi 4",
-      productImage: "/images/raspberry-pi-4.png",
-      productBrand: "Raspberry Pi",
-      starRating: 4.7,
-      amountSold: 3467,
-      salePrice: "79.99",
-      actualPrice: "59.99",
-    },
-    {
-      productId: 3,
-      productName: "Iphone 16",
-      productImage: "/images/iphone16.png",
-      productBrand: "Apple",
-      starRating: 4.1,
-      amountSold: 11321,
-      salePrice: "1349.99",
-      actualPrice: "1249.99",
-    },
-  ];
+  const productRecommendations = useRecommendationsContext();
+
+  console.log(productRecommendations);
+
+  // Map each product name in the productRecommendations string array to the product objects
+  // The productsData will have a corresponding product with the same "productName"
+  // ex. ["MacBook Pro 16", "Apple Watch Series 9", "Pixel 9 Pro"]
+  const matchedProducts = productRecommendations.map((productName) => {
+    return productsData.products.find(
+      (product) => product.productName === productName
+    );
+  });
+
+  console.log({ matchedProducts });
 
   return (
-    <section className="container flex flex-row py-8">
+    <section className="container flex flex-row py-8 overflow-auto">
       <div className="flex flex-row space-x-5">
-        {products.map((prod) => (
-          <ProductCardVertical
-            key={prod.productId}
-            productId={prod.productId}
-            productName={prod.productName}
-            productImage={prod.productImage}
-            productBrand={prod.productBrand}
-            starRating={prod.starRating}
-            amountSold={prod.amountSold}
-            salePrice={prod.salePrice}
-            actualPrice={prod.actualPrice}
-          />
+        {matchedProducts?.map((prod) => (
+          <>
+            {prod && (
+              <ProductCardVertical
+                key={prod.productId}
+                productId={prod.productId}
+                productName={prod.productName}
+                productImage={prod.productImage}
+                productBrand={prod.productBrand}
+                starRating={prod.starRating}
+                amountSold={prod.amountSold}
+                salePrice={prod.normalPrice}
+                actualPrice={prod.salePrice}
+              />
+            )}
+          </>
         ))}
       </div>
     </section>

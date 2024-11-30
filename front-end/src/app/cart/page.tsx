@@ -3,6 +3,7 @@ import { State } from "@/types/store-types";
 import { useSelector } from "react-redux";
 import ScrollableProductsList from "../_components/molecules/ScrollableProductsList";
 import ProductCardCartHorizontal from "../_components/atoms/ProductCardCartHorizontal";
+import { RecommendationsProvider } from "@/providers/RecommendationsProvider";
 
 const CartPage = () => {
   const cartData = useSelector((state: State) => state.cart);
@@ -20,7 +21,9 @@ const CartPage = () => {
 
             <div className="my-40 font-bold">
               <h3>Here are some products we&apos;d recommend:</h3>
-              <ScrollableProductsList />
+              <RecommendationsProvider>
+                <ScrollableProductsList />
+              </RecommendationsProvider>
             </div>
           </div>
         )}

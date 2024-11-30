@@ -5,6 +5,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ScrollableProductsList from "../_components/molecules/ScrollableProductsList";
 import { Trash2 } from "lucide-react";
+import { RecommendationsProvider } from "@/providers/RecommendationsProvider";
 
 const LikedProductsPage = () => {
   const likedProductsData = useSelector((state: State) => state.likedProducts);
@@ -31,7 +32,9 @@ const LikedProductsPage = () => {
 
             <div className="my-40 font-bold">
               <h3>Here are some products we&apos;d recommend:</h3>
-              <ScrollableProductsList />
+              <RecommendationsProvider>
+                <ScrollableProductsList />
+              </RecommendationsProvider>
             </div>
           </div>
         )}
