@@ -1,0 +1,180 @@
+{
+  "products": [
+    {
+      "productId": 1,
+      "productName": "IPhone 16",
+      "productBrand": "Apple",
+      "productDescription": "The newest IPhone Apple has to offer. Contains a faster A18 chip and a configurable action button.",
+      "productImage": "/images/iphone16.png",
+      "starRating": 4.8,
+      "amountSold": 25000,
+      "normalPrice": "1000",
+      "salePrice": "950"
+    },
+    {
+      "productId": 2,
+      "productName": "Galaxy S30 Ultra",
+      "productBrand": "Samsung",
+      "productDescription": "A flagship phone featuring a 200MP camera, S Pen support, and a vibrant 6.9-inch AMOLED display.",
+      "productImage": "/images/galaxys30ultra.jpg",
+      "starRating": 4.7,
+      "amountSold": 18000,
+      "normalPrice": "1200",
+      "salePrice": "1150"
+    },
+    {
+      "productId": 3,
+      "productName": "Pixel 9 Pro",
+      "productBrand": "Google",
+      "productDescription": "Powered by Google’s Tensor G3 chip, offering cutting-edge AI capabilities and a stellar camera.",
+      "productImage": "/images/pixel9pro.png",
+      "starRating": 4.6,
+      "amountSold": 22000,
+      "normalPrice": "900",
+      "salePrice": "850"
+    },
+    {
+      "productId": 4,
+      "productName": "MacBook Pro 16",
+      "productBrand": "Apple",
+      "productDescription": "Equipped with the powerful M3 Max chip, this laptop is ideal for professional video editing and programming.",
+      "productImage": "/images/macbookpro16.png",
+      "starRating": 4.9,
+      "amountSold": 12000,
+      "normalPrice": "2500",
+      "salePrice": "2400"
+    },
+    {
+      "productId": 5,
+      "productName": "Dell XPS 15",
+      "productBrand": "Dell",
+      "productDescription": "A premium laptop with a stunning InfinityEdge display and 12th-gen Intel Core i9 processor.",
+      "productImage": "/images/dellxps15.avif",
+      "starRating": 4.5,
+      "amountSold": 15000,
+      "normalPrice": "2200",
+      "salePrice": "2100"
+    },
+    {
+      "productId": 6,
+      "productName": "Razer Blade 14",
+      "productBrand": "Razer",
+      "productDescription": "Compact gaming laptop with an AMD Ryzen 9 processor and NVIDIA RTX 4070 GPU.",
+      "productImage": "/images/razerblade14.webp",
+      "starRating": 4.7,
+      "amountSold": 8000,
+      "normalPrice": "2700",
+      "salePrice": "2600"
+    },
+    {
+      "productId": 7,
+      "productName": "GeForce RTX 4090",
+      "productBrand": "NVIDIA",
+      "productDescription": "Top-of-the-line graphics card with 24GB GDDR6X memory, perfect for 4K gaming and AI workloads.",
+      "productImage": "/images/rtx4090.png",
+      "starRating": 4.9,
+      "amountSold": 10000,
+      "normalPrice": "1600",
+      "salePrice": "1550"
+    },
+    {
+      "productId": 8,
+      "productName": "Radeon RX 7900 XTX",
+      "productBrand": "AMD",
+      "productDescription": "High-performance GPU designed for gamers and creators with 20GB GDDR6 memory.",
+      "productImage": "/images/rx7900xtx.png",
+      "starRating": 4.4,
+      "amountSold": 7000,
+      "normalPrice": "1000",
+      "salePrice": "950"
+    },
+    {
+      "productId": 9,
+      "productName": "Intel Core i9-14900K",
+      "productBrand": "Intel",
+      "productDescription": "14-core processor with unparalleled performance for gaming and multitasking.",
+      "productImage": "/images/corei9.webp",
+      "starRating": 4.8,
+      "amountSold": 5000,
+      "normalPrice": "700",
+      "salePrice": "680"
+    },
+    {
+      "productId": 10,
+      "productName": "AMD Ryzen 9 7950X",
+      "productBrand": "AMD",
+      "productDescription": "16-core processor with industry-leading multi-threaded performance for creators and gamers.",
+      "productImage": "/images/ryzen97950X.webp",
+      "starRating": 4.7,
+      "amountSold": 5500,
+      "normalPrice": "750",
+      "salePrice": "730"
+    },
+    {
+      "productId": 11,
+      "productName": "Corsair RM850x PSU",
+      "productBrand": "Corsair",
+      "productDescription": "850W fully modular power supply with 80 Plus Gold certification for efficient power delivery.",
+      "productImage": "/images/rm850x.webp",
+      "starRating": 4.6,
+      "amountSold": 3000,
+      "normalPrice": "150",
+      "salePrice": "140"
+    },
+    {
+      "productId": 12,
+      "productName": "Logitech MX Master 3",
+      "productBrand": "Logitech",
+      "productDescription": "Ergonomic wireless mouse with customizable buttons and exceptional precision.",
+      "productImage": "/images/mxmaster3.png",
+      "starRating": 4.8,
+      "amountSold": 8000,
+      "normalPrice": "100",
+      "salePrice": "90"
+    },
+    {
+      "productId": 13,
+      "productName": "Samsung T7 Portable SSD",
+      "productBrand": "Samsung",
+      "productDescription": "1TB external SSD with USB 3.2 Gen 2 for lightning-fast file transfers.",
+      "productImage": "/images/t7ssd.jpg",
+      "starRating": 4.6,
+      "amountSold": 11000,
+      "normalPrice": "150",
+      "salePrice": "140"
+    },
+    {
+      "productId": 14,
+      "productName": "Sony WH-1000XM5",
+      "productBrand": "Sony",
+      "productDescription": "Industry-leading noise-canceling headphones with exceptional sound quality and long battery life.",
+      "productImage": "/images/wh1000xm5.avif",
+      "starRating": 4.8,
+      "amountSold": 20000,
+      "normalPrice": "400",
+      "salePrice": "380"
+    },
+    {
+      "productId": 15,
+      "productName": "Apple Watch Series 9",
+      "productBrand": "Apple",
+      "productDescription": "Smartwatch with advanced health tracking and a brighter, always-on display.",
+      "productImage": "/images/apple-watch.png",
+      "starRating": 4.7,
+      "amountSold": 25000,
+      "normalPrice": "500",
+      "salePrice": "480"
+    },
+    {
+      "productId": 16,
+      "productName": "Raspberry Pi 4",
+      "productBrand": "Raspberry Pi",
+      "productDescription": "Smartwatch with advanced health tracking and a brighter, always-on display.",
+      "productImage": "/images/raspberry-pi-4.png",
+      "starRating": 4.7,
+      "amountSold": 25000,
+      "normalPrice": "500",
+      "salePrice": "480"
+    }
+  ]
+}
