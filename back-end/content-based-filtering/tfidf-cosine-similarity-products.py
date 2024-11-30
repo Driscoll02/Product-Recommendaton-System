@@ -9,7 +9,7 @@ mock_json_data = [
     {"productId": 1, "productName": "IPhone 16", "productBrand": "Apple", "productDescription": "The newest IPhone Apple has to offer. Contains a faster A18 chip and a configurable action button.", "price": 1000},
     {"productId": 2, "productName": "Galaxy S30 Ultra", "productBrand": "Samsung", "productDescription": "A flagship phone featuring a 200MP camera, S Pen support, and a vibrant 6.9-inch AMOLED display.", "price": 1200},
     {"productId": 3, "productName": "Pixel 9 Pro", "productBrand": "Google", "productDescription": "Powered by Google’s Tensor G3 chip, offering cutting-edge AI capabilities and a stellar camera.", "price": 900},
-    {"productId": 4, "productName": "MacBook Pro 16\"", "productBrand": "Apple", "productDescription": "Equipped with the powerful M3 Max chip, this laptop is ideal for professional video editing and programming.", "price": 2500},
+    {"productId": 4, "productName": "MacBook Pro 16", "productBrand": "Apple", "productDescription": "Equipped with the powerful M3 Max chip, this laptop is ideal for professional video editing and programming.", "price": 2500},
     {"productId": 5, "productName": "Dell XPS 15", "productBrand": "Dell", "productDescription": "A premium laptop with a stunning InfinityEdge display and 12th-gen Intel Core i9 processor.", "price": 2200},
     {"productId": 6, "productName": "Razer Blade 14", "productBrand": "Razer", "productDescription": "Compact gaming laptop with an AMD Ryzen 9 processor and NVIDIA RTX 4070 GPU.", "price": 2700},
     {"productId": 7, "productName": "GeForce RTX 4090", "productBrand": "NVIDIA", "productDescription": "Top-of-the-line graphics card with 24GB GDDR6X memory, perfect for 4K gaming and AI workloads.", "price": 1600},
@@ -35,6 +35,11 @@ tfidf_desc = TfidfVectorizer(stop_words="english")
 df_products["productBrand"] = df_products["productBrand"].fillna("")
 df_products["productDescription"] = df_products["productDescription"].fillna("")
 
+# Define weights
+brand_weight = 0.4  # Reduce the importance of the brand
+desc_weight = 0.7   # Increase the importance of the description
+price_weight = 0.5  # Adjust the importance of the price
+
 brand_tfidf_matrix = tfidf_brand.fit_transform(df_products["productBrand"])
 desc_tfidf_matrix = tfidf_desc.fit_transform(df_products["productDescription"])
 
@@ -42,8 +47,13 @@ desc_tfidf_matrix = tfidf_desc.fit_transform(df_products["productDescription"])
 scaler = MinMaxScaler()
 price_matrix = scaler.fit_transform(df_products[['price']])
 
+# Apply weights to each feature matrix
+weighted_brand_matrix = brand_weight * brand_tfidf_matrix.toarray()
+weighted_desc_matrix = desc_weight * desc_tfidf_matrix.toarray()
+weighted_price_matrix = price_weight * price_matrix
+
 # Combine the feature matrices (brand, description, and price)
-combined_features = np.hstack([brand_tfidf_matrix.toarray(), desc_tfidf_matrix.toarray(), price_matrix])
+combined_features = np.hstack([weighted_brand_matrix, weighted_desc_matrix, weighted_price_matrix])
 
 cosine_sim = cosine_similarity(combined_features)
 
@@ -61,10 +71,10 @@ def get_recommendations(title, cosine_sim=cosine_sim, indices=indices):
     # Get similarity scores
     sim_scores = list(enumerate(cosine_sim[idx]))
 
-    # Sort scores (highest similarity first)
+    # Sort scores in desc order (most similar first)
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 
-    # Get the top 10 recommendations (excluding itself)
+    # Get the top 10 recommendations (excluding the product with title)
     sim_scores = sim_scores[1:11]
     sim_indices = [i[0] for i in sim_scores]
 
