@@ -7,7 +7,7 @@ const Hero = () => {
     <div className="bg-gradient-to-r flex from-orange-500 px-24 to-red-500 py-40">
       <div className="w-1/3 flex flex-col gap-5">
         <h1 className="text-white uppercase text-7xl font-bold">
-          CHRISTMAS SALE 2024.
+          CHRISTMAS SALE 2024. 🎄
         </h1>
         <p className="text-white mt-4 text-4xl">
           Up to 75% off selected products and massive discounts throughout

@@ -19,6 +19,9 @@ export default function Home() {
               <TopCategories />
               <RecommendationsProvider>
                 <ScrollableProducts groupTitle="Recommended Products" />
+                <ScrollableProducts groupTitle="Recommended Products" />
+                <ScrollableProducts groupTitle="Recommended Products" />
+                <ScrollableProducts groupTitle="Recommended Products" />
               </RecommendationsProvider>
             </div>
           </div>
