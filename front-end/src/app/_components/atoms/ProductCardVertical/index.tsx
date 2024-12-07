@@ -92,8 +92,8 @@ const ProductCardVertical = ({
   }, [isProductLiked]);
 
   return (
-    <div className="flex flex-col shadow rounded-lg p-4 w-64 h-30 relative">
-      <div className="relative rounded-md bg-slate-200">
+    <div className="flex flex-col shadow bg-slate-100 rounded-lg p-4 w-64 h-30 relative">
+      <div className="relative rounded-md bg-slate-300">
         <button
           className="p-2 absolute left-2 top-2 bg-white rounded-[50px]"
           onClick={() => {

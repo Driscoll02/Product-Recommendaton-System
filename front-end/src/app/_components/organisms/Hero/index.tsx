@@ -1,47 +1,37 @@
 import Image from "next/image";
 // import { Button } from "@/components/ui/button";
-// import { ShoppingCart } from "lucide-react";
+import { ArrowRight, ShoppingCart } from "lucide-react";
 
 const Hero = () => {
   return (
-    <div>
-      <div className="w-full h-[50vh]">
+    <div className="bg-gradient-to-r flex from-orange-500 px-24 to-red-500 py-40">
+      <div className="w-1/3 flex flex-col gap-5">
+        <h1 className="text-white uppercase text-7xl font-bold">
+          CHRISTMAS SALE 2024.
+        </h1>
+        <p className="text-white mt-4 text-4xl">
+          Up to 75% off selected products and massive discounts throughout
+        </p>
+        <div className="mt-6 flex items-center">
+          <button className="flex gap-3 justify-center items-center bg-black text-white px-10 py-4 rounded-full">
+            Shop Now <ShoppingCart />
+          </button>
+          <a href="#" className="flex ml-4 gap-2 text-white underline">
+            Contact Us
+            <ArrowRight />
+          </a>
+        </div>
+      </div>
+      <div className="relative">
         <Image
-          src={"/images/hero-landscape-2.jpg"}
-          width={780}
-          height={600}
-          alt=""
-          className="w-full h-full"
+          alt={"Apple Watch"}
+          className="h-44 w-44 p-4"
+          width={168}
+          height={168}
+          src={"/images/transparentHeroAppleWatches.png"}
         />
       </div>
-      <div className="bg-orange-600 px-16 py-8 text-white">
-        <p className="uppercase">
-          Spend £50, <span className="font-bold">Get a £10 gift card</span>
-        </p>
-      </div>
     </div>
-    // <div className="flex w-full rounded-xl bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 h-fit">
-    //   <div className="flex flex-col w-1/4 xl:w-1/6 mx-12 xl:mx-24 my-16 xl:my-20 text-white text-3xl xl:text-5xl space-y-6 xl:space-y-8">
-    //     <h2 className="font-bold">Christmas Sale</h2>
-    //     <span className="text-2xl xl:text-3xl">Offer 2024</span>
-    //     <span className="text-5xl xl:text-7xl font-extrabold">40% OFF</span>
-    //     <Button className="mt-8 xl:mt-10 bg-white text-red-600 px-6 py-3 rounded-lg hover:bg-red-50 transition-all duration-300 flex items-center space-x-3">
-    //       <ShoppingCart className="w-5 h-5" />
-    //       <span>Shop Now</span>
-    //     </Button>
-    //   </div>
-
-    //   {/* Image container */}
-    //   <div className="flex justify-center items-center w-3/4 xl:w-5/6">
-    //     <Image
-    //       src={"/images/hero-watches.png"}
-    //       alt="Three apple watches"
-    //       width={400}
-    //       height={400}
-    //       className="object-contain sm:w-[500px] sm:h-[500px] lg:w-[650px] lg:h-[650px] xl:w-[700px] xl:h-[700px]" // Dynamic width/height
-    //     />
-    //   </div>
-    // </div>
   );
 };
 

@@ -19,7 +19,7 @@ const ScrollableProductsList = () => {
   console.log({ matchedProducts });
 
   return (
-    <section className="container flex flex-row py-8 overflow-auto">
+    <section className=" flex flex-row py-8 overflow-auto">
       <div className="flex flex-row space-x-5">
         {matchedProducts?.map((prod) => (
           <>
