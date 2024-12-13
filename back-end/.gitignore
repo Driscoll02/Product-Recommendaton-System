@@ -1,1 +1,6 @@
 __pycache__/
+venv
+
+.env
+
+chroma_langchain_product_vectors_db/
