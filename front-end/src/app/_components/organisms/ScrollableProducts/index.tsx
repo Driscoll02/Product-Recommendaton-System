@@ -6,7 +6,7 @@ type TScrollableProductsProps = {
 
 const ScrollableProducts = ({ groupTitle }: TScrollableProductsProps) => {
   return (
-    <div className="my-10">
+    <div className="my-24">
       <h3 className="font-semibold text-2xl">{groupTitle}</h3>
       <ScrollableProductsList />
     </div>
