@@ -1,5 +1,4 @@
 # ------------------------- Indexing ------------------------- 
-from langchain_community.document_loaders import JSONLoader
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain_chroma import Chroma
 from langchain.chains.combine_documents import create_stuff_documents_chain
@@ -7,30 +6,24 @@ from langchain.chains.retrieval import create_retrieval_chain
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
 import os
+from rag_llm.load_products_json import load_products_json
 
 # Load environment variables from the .env file (if present)
 load_dotenv()
 
 # 1. Load data
-file_path = '../products.json'
-
-# the jq_schema can split the documents since we access it as an array
-loader = JSONLoader(file_path=file_path, jq_schema='.products[]', text_content=False)
-
-data = loader.load()
+products_data = load_products_json()
 
 # 2. Vectorise and store the data (Probs with ChromaDB) 
 
 google_api_key = os.environ["GEMINI_API_KEY"]
 embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=google_api_key)
 
-persist_directory = ""
-
 vector_store = Chroma(
     collection_name="product_vectors_collection",
     embedding_function=embeddings,
     persist_directory="./chroma_langchain_product_vectors_db",  # Where to save data locally, remove if not necessary
-).from_documents(data, embeddings)
+).from_documents(products_data, embeddings)
 # ------------------------- Retrieval and generation -------------------------
 
 # 3. Use a retriever to get the relevant splits from the store
