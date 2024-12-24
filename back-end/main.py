@@ -7,7 +7,9 @@ from langchain_chroma import Chroma
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains.retrieval import create_retrieval_chain
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.runnables.history import RunnableWithMessageHistory
 
 from content_based_filtering.tfidf_cosine_similarity_products import get_recommendations
 from rag_llm.load_products_json import load_products_json
@@ -40,14 +42,34 @@ vector_store = Chroma(
 
 retriever = vector_store.as_retriever(search_kwargs={"k":4})
 
+# chat_history = []
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key=google_api_key, temperature=0)
 
-prompt_template = PromptTemplate(input_variables=["context", "input"], template="Use the provided context to answer all user queries on the tech products we provide. Remember all prices are in GBP (£). If the user provides a query which isn't related to tech, you can tell them this, but try to get the chat back on track. Context: {context} Query: {input}")
+prompt_template = ChatPromptTemplate.from_messages([
+    ("system", "Use the provided context to answer all user queries on the tech products we provide. Remember all prices are in GBP (£). If the user provides a query which isn't related to tech, you can tell them this, but try to get the chat back on track. Context: {context}"),
+    MessagesPlaceholder(variable_name="history"),
+    ("human", "{input}")
+])
 combine_docs_chain = create_stuff_documents_chain(
     llm, prompt_template
 )
 
 retrieval_chain = create_retrieval_chain(retriever, combine_docs_chain)
+
+chat_histories = {}
+
+def get_chat_history(session_id: str):
+    if session_id not in chat_histories:
+        chat_histories[session_id] = ChatMessageHistory()
+    return chat_histories[session_id]
+
+history_aware_chain = RunnableWithMessageHistory(
+    retrieval_chain,
+    get_chat_history,
+    input_messages_key="input",
+    history_messages_key="history",
+    output_messages_key="answer"
+)
 
 # Define the request body structure
 class ProductRequest(BaseModel):
@@ -55,6 +77,7 @@ class ProductRequest(BaseModel):
 
 class RagLlmRequest(BaseModel):
     user_input: str
+    session_id: str
 
 @app.post("/product-cosine-sim")
 async def product_cosine_sim(request: ProductRequest):
@@ -72,11 +95,10 @@ async def rag_inference(request: RagLlmRequest):
     print(request)
     try:
         user_input = request.user_input
-    #https://python.langchain.com/api_reference/langchain/chains/langchain.chains.conversational_retrieval.base.ConversationalRetrievalChain.htmlaaaaaaa
-        response = retrieval_chain.invoke({"input": user_input})
+        session_id = request.session_id
 
-        print(response["answer"])
+        response = history_aware_chain.invoke({'input': user_input, "history": chat_histories}, {'configurable': {'session_id': session_id}})
 
-        return { "llm_response": response["answer"] }
+        return { "llm_response": response, "chat_history": get_chat_history(session_id)}
     except KeyError as e:
-         raise HTTPException(status_code=500, detail=f"Something went wrong with the request to the LLM.")
+         raise HTTPException(status_code=500, detail=str(e))
