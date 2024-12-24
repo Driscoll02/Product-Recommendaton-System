@@ -8,8 +8,6 @@ import { RecommendationsProvider } from "@/providers/RecommendationsProvider";
 const CartPage = () => {
   const cartData = useSelector((state: State) => state.cart);
 
-  console.log(cartData);
-
   return (
     <div className="flex items-center justify-center my-20">
       <div className="container flex items-center justify-center my-20 flex-col">

@@ -34,8 +34,6 @@ export const productTrackerSlice = createSlice({
         cartProductId: nanoid(),
       });
 
-      console.log({ product });
-
       if ("cartProductId" in product) {
         state.cart.push(product);
       }
