@@ -12,7 +12,31 @@ export default function Home() {
     <div>
       <ToastContainer />
       <div className="bg-gradient-to-r from-orange-500 to-red-500 h-screen">
-        <Hero />
+        <Hero
+          heroData={{
+            title: "CHRISTMAS SALE 2024. 🎄",
+            description:
+              "Up to 75% off selected products and massive discounts throughout",
+            cta1Text: "Shop Now",
+            cta2Text: "Contact Us",
+            imageData: {
+              url: "/images/applewatchherodisplay.png",
+              width: 1000,
+              height: 700,
+              alt: "Apple Watch",
+            },
+          }}
+        >
+          <Hero.InformationWrapper>
+            <Hero.Title />
+            <Hero.Description />
+            <Hero.CtaWrapper>
+              <Hero.HeroCta1 />
+              <Hero.HeroCta2 />
+            </Hero.CtaWrapper>
+          </Hero.InformationWrapper>
+          <Hero.HeroImage />
+        </Hero>
         <div className="relative">
           <div className="absolute w-full bg-white rounded-tl-[6rem] shadow-lg -top-12">
             {/* Content Section */}
@@ -50,7 +74,7 @@ export default function Home() {
                         damping: 20,
                         stiffness: 100,
                         duration: 0.8,
-                        delay: index * 0.8, // Delay each ScrollableProducts by 0.5s
+                        delay: index * 0.8, // Delay each ScrollableProducts by 0.8s
                       }}
                     >
                       <ScrollableProducts groupTitle={groupTitle} />
