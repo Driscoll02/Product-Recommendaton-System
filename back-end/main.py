@@ -79,26 +79,29 @@ class RagLlmRequest(BaseModel):
     user_input: str
     session_id: str
 
+class RagLlmHistoryRequest(BaseModel):
+    session_id: str
+
 @app.post("/product-cosine-sim")
 async def product_cosine_sim(request: ProductRequest):
-    print(request)
     try:
-        print(request.product_name)
-        product_name = request.product_name
-        recommendations = get_recommendations(product_name)
-        return {"product_name": product_name, "recommendations": recommendations}
+        recommendations = get_recommendations(request.product_name)
+        return {"product_name": request.product_name, "recommendations": recommendations}
     except KeyError as e:
         raise HTTPException(status_code=404, detail=f"Product {str(e)} not found.")
     
 @app.post("/rag-inference")
 async def rag_inference(request: RagLlmRequest):
-    print(request)
     try:
-        user_input = request.user_input
-        session_id = request.session_id
+        response = history_aware_chain.invoke({'input': request.user_input, "history": chat_histories}, {'configurable': {'session_id': request.session_id}})
 
-        response = history_aware_chain.invoke({'input': user_input, "history": chat_histories}, {'configurable': {'session_id': session_id}})
-
-        return { "llm_response": response, "chat_history": get_chat_history(session_id)}
+        return { "llm_response": response, "chat_history": get_chat_history(request.session_id)}
+    except KeyError as e:
+         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.post("/get-rag-history")
+async def get_rag_history(request: RagLlmHistoryRequest):
+    try:
+        return {"chat_history": get_chat_history(request.session_id)}
     except KeyError as e:
          raise HTTPException(status_code=500, detail=str(e))
